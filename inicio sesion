@@ -1,0 +1,71 @@
+    String txt_ingresa = "//nav[@id='nav-header-menu']//a[contains(text(),'Ingresa')]";
+	String txt_usuario_email = "//input[@id='user_id']";
+	String txt_continuar = "//input[@class='ui-button ui-button--primary auth-button auth-button--user'] ";
+	String txt_password = "//input[@id='password']";
+	String txt_ingresar = "//button[@id='action-complete']";
+	String txt_menu = "//span[@class='nav-header-username-chevron']";
+	String txt_cuenta = "//a[@class='user-menu__primary-action ui-button ui-button--primary'] ";
+	String txt_configuracion = "//label[contains(text(),'Configuración')]";
+	String txt_datos = "//a[@id='myml-nav__menu-item-my_details']";
+	String txt_confirmarUsuario = "//div[7]//div[1]//div[1]//div[2]";
+	String txt_revisaUsuario = "//div[@class='ui-form__message']";
+
+//	@Step
+//	public void iniciar_Sesión(String usuario, String email, String clave, String pais) throws Exception {
+//		ChromeOptions options = new ChromeOptions();
+//        options.addArguments("--incognito");
+//		pageObjects_Mercado.pais(pais);
+//		pageObjects_Mercado.ingresar();
+//		Thread.sleep(1500);
+//		pageObjects_Mercado.usuarioEmail(email);
+//		Thread.sleep(1500);
+//		pageObjects_Mercado.continuar();
+//		pageObjects_Mercado.contrasena(clave);
+//		pageObjects_Mercado.iniciar();
+//	}
+//
+//	@Step
+//	public void verificar_que_se_haya_iniciado_sesion() throws Exception {
+//		pageObjects_Mercado.menu();
+//		pageObjects_Mercado.cuenta();
+//		pageObjects_Mercado.configuracion();
+//		pageObjects_Mercado.datos();
+//		pageObjects_Mercado.confirmarUsuario();
+//	}
+
+public void ingresar () {
+		 find(By.xpath(txt_ingresa)).click();
+	}
+	public void usuarioEmail (String email) {
+		 find(By.xpath(txt_usuario_email)).sendKeys(email);
+	}
+	public void continuar () {
+		 find(By.xpath(txt_continuar)).click();
+		 if (find(By.xpath(txt_revisaUsuario)).isVisible()) {
+			 System.out.println("entre al error");
+			 String revisa = find(By.xpath(txt_revisaUsuario)).getText();
+			 Assert.assertEquals("Revisa tu e-mail o usuario.", revisa);
+		 }
+	}
+	public void contrasena(String clave) {
+		find(By.xpath(txt_password)).sendKeys(clave);
+	}
+	public void iniciar () {
+		find(By.xpath(txt_ingresar)).click();
+	}
+	public void menu () {
+		find(By.xpath(txt_menu)).click();
+	}
+	public void cuenta () {
+		find(By.xpath(txt_cuenta)).click();
+	}
+	public void configuracion () {
+		find(By.xpath(txt_configuracion)).click();
+	}
+	public void datos () {
+		find(By.xpath(txt_datos)).click();
+	}
+	public void confirmarUsuario () {
+		confirmarUsuario = find(By.xpath(txt_confirmarUsuario)).getText();
+		Assert.assertEquals("carlos sarmiento", confirmarUsuario);
+	}
